@@ -1,0 +1,137 @@
+<div class="container-fluid">
+  <div class="row">
+    <nav class=" d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register-patient" routerLinkActive="active">
+              Ajouter un Patient
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/view-patient" routerLinkActive="active">
+              Liste des Patients
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+<div class="pt-3 pb-2 mb-3 border-bottom">
+  <h2 class="h2">Ajouter un patient</h2>
+</div>
+
+<form [formGroup]="patientForm" (ngSubmit)="submitPatientData()" novalidate>
+  <div class="row">
+    <div class="col-lg-5 col-md-12 col-sm-12">
+      <div class="row">
+
+        <div class="col-md-12 mb-3">
+          <label>Nom</label>
+          <input type="text" formControlName="nom" class="form-control" required>
+
+          <!-- errors-->
+          <p *ngIf="nom.touched && nom.invalid" class="error"><sup>*</sup>SVP entrez un nom
+          </p>
+          <p *ngIf="nom.errors?.minlength" class="error"><sup>*</sup>Le nom ne doit pas etre 2 mots  </p>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label>Prénom</label>
+          <input type="text" formControlName="prenom" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label>Email</label>
+          <input type="email" formControlName="email" class="form-control" required>
+
+          <!-- errors-->
+          <p *ngIf="email.touched && email.invalid" class="error"><sup>*</sup>SVP ajoutez un email</p>
+          <p *ngIf="email.errors?.pattern" class="error"><sup>*</sup>SVP ajoutez un email correct</p>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label>N°Tel</label>
+          <input type="text" formControlName="tel" class="form-control" required>
+
+          <!-- errors-->
+          <p *ngIf="tel.touched && tel.invalid" class="error"><sup>*</sup>SVP ajoutez un nbr</p>
+          <p *ngIf="tel.errors?.pattern" class="error"><sup>*</sup>Utilisez les nbrs seulment</p>
+        </div>
+
+      </div>
+
+      <div class="row">
+          <div class="col-md-12 mb-3">
+            <label>Notes</label>
+            <input type="text" formControlName="notes" class="form-control" required>
+  
+            <!-- errors-->
+            <p *ngIf="notes.touched && notes.invalid" class="error"><sup>*</sup>SVP ajoutez des notes</p>
+          </div>
+  
+          <div class="col-md-12 mb-3">
+            <label>N°CIN</label>
+            <input type="text" formControlName="cin" class="form-control" required>
+  
+            <!-- errors-->
+            <p *ngIf="cin.touched && cin.invalid" class="error"><sup>*</sup>SVP ajoutez un nbr de cin</p>
+            <p *ngIf="cin.errors?.pattern" class="error"><sup>*</sup>Utilisez les nbrs seulment</p>
+          </div>
+
+          
+              <div class="col-md-12 mb-3">
+                <label>Montant payé</label>
+                <input type="number" formControlName="pb" class="form-control" required>
+      
+                <!-- errors-->
+                <p *ngIf="pb.touched && pb.invalid" class="error"><sup>*</sup>SVP ajoutez un montant</p>
+                <p *ngIf="pb.errors?.pattern" class="error"><sup>*</sup>SVP ajoutez un montant correct</p>
+              </div>
+      
+              <div class="col-md-12 mb-3">
+                <label>Date de Naissance</label>
+                <input type="date" formControlName="dn" value="2000-12-24" min="1900-01-01" max="2038-12-31" class="form-control" required>
+      
+                <!-- errors-->
+               
+              </div>
+      
+           
+          
+              <div class="col-md-12 mb-3">
+                <label>Prochain RDV</label>
+                <input type="date" formControlName="prdv" value="2021-12-24" min="2021-01-01" max="2038-12-31" class="form-control" required>
+      
+              
+                
+              </div>
+      
+              <div class="col-md-12 mb-3">
+                <label>Sexe</label>
+                <input type="text" formControlName="sexe" class="form-control" required>
+      
+                <!-- errors-->
+                <p *ngIf="sexe.touched && sexe.invalid" class="error"><sup>*</sup>SVP mettez le  Sexe </p>
+                <p *ngIf="sexe.errors?.pattern" class="error"><sup>*</sup>SVP  le  Sexe doit etre H ou F</p>
+      
+                
+                
+              </div>
+      
+            
+        </div>
+      <div class="form-group text-right">
+        <button type="button" class="btn btn-secondary gap-right" (click)="ResetForm()">Reset</button>
+        <button type="submit" class="btn btn-success" [disabled]="!patientForm.valid">Ajouter Patient</button>
+      </div>
+
+    </div>
+  </div>
+</form>

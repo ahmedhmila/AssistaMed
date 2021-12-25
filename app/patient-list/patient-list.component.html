@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row">
+    <nav class=" d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register-patient" routerLinkActive="active">
+              Ajouter un Patient
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/view-patient" routerLinkActive="active">
+              Liste des Patients
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h2 class="h2">Liste des patients</h2>
+  <input type="text" class="form-control mb-5" name="query" [(ngModel)]="query" placeholder="Recherche..." id="query" (keyup)="onSearch()">
+  <a routerLink="/register-patient" class="btn btn-success" *ngIf="hideWhenNoPatient">
+    Ajouter un Patient
+  </a>
+</div>
+
+<div class="pricing-header mx-auto">
+
+  <div class="no-data text-center" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No student">
+  </div>
+
+  <div class="no-data text-center" *ngIf="noData">
+    <img src="assets/no-student.svg" class="nodata-msg" alt="No student">
+    <p class="nodata-msg">Aucun patient ajouté</p>
+    <a routerLink="/register-patient" class="btn btn-success">
+      Ajouter patient
+    </a>
+  </div>
+
+  <div class="table-responsive" *ngIf="hideWhenNoPatient">
+    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead>
+        <tr>
+          
+          <th scope="col">Nom patient</th>
+          <th scope="col">Email</th>
+          <th scope="col">N°Tel</th>
+          <th scope="col">N°CIN</th>
+          <th scope="col">Date de naissance</th>
+          <th scope="col">Sexe</th>
+          <th scope="col">Montant payé</th>
+          <th scope="col">Prochain RDV</th>
+          <th scope="col">Notes</th>
+          
+
+          <th class="text-center" scope="col">Modifier</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let patient of Patient | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+          <th scope="row">{{patient.nom}} {{patient.prenom}}</th>
+          <td>{{patient.email}}</td>
+          <td>{{patient.tel}}</td>
+          <td>{{patient.cin}}</td>
+          <td>{{patient.dn}}</td>
+          <td>{{patient.sexe}}</td>
+          <td>{{patient.pb | currency:"TND":'symbol':'2.2-2'}}</td>
+          <td>{{patient.prdv}}</td>
+          <td>{{patient.notes}}</td>
+          <td class="text-center action-block">
+            <span class="mr-2 btn btn-outline-primary btn-sm" routerLink="/edit-patient/{{patient.$key}}">Modifier</span> 
+            <span class="btn btn-outline-danger btn-sm" (click)="deletePatient(patient)">Supprimer</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+</div>

@@ -1,0 +1,33 @@
+
+  <router-outlet><img src="assets/M.jpg" class="nodata-msg" alt="No student"></router-outlet>
+
+<div *ngIf="(afAuth.user | async)">
+    
+    Un docteur a été authentifié vous avez l'accès au Dashboard
+
+    <br>
+    <br>
+   
+    
+    <a  routerLink="/dashboard">
+      <button class="btn btn-success">Dashboard </button>
+    </a>
+       "                                  "
+    
+    <button class="btn btn-success" (click)="logout()">
+        Log out
+    </button>
+</div>
+<div *ngIf="!(afAuth.user | async)">
+    Ue docteur doit s'authentifier
+    <br>
+    <br>
+    
+    
+  <a  routerLink="/login">
+    <button class="btn btn-success">
+      Login
+  </button>
+  </a>
+</div>
+
